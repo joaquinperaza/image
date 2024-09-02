@@ -205,7 +205,14 @@ class InputBuffer {
   double readFloat32() => uint32ToFloat32(readUint32());
 
   /// Read a 64-bit float.
-  double readFloat64() => uint64ToFloat64(readUint64());
+  double readFloat64() {
+    var high = readFloat32();
+    var low = readFloat32();
+    var float64 = Float64List(1);
+    float64.buffer.asFloat32List()[0] = high;
+    float64.buffer.asFloat32List()[1] = low;
+    return float64[0];
+  }
 
   /// Read a 64-bit word form the stream.
   int readUint64() {
