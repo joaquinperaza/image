@@ -388,7 +388,9 @@ class TiffImage {
           if (samplesPerPixel == 1) {
             if (sampleFormat == TiffFormat.float) {
               num sample = 0;
-              if (bitsPerSample == 32) {
+              if (byteData.offset >= byteData.buffer.length) {
+                sample = 0;
+              } else if (bitsPerSample == 32) {
                 sample = byteData.readFloat32();
               } else if (bitsPerSample == 64) {
                 sample = byteData.readFloat64();
