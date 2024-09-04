@@ -459,7 +459,11 @@ class TiffImage {
               var r = 0.0;
               var g = 0.0;
               var b = 0.0;
-              if (bitsPerSample == 32) {
+              if (byteData.offset >= byteData.buffer.length) {
+                r = 0;
+                g = 0;
+                b = 0;
+              } else if (bitsPerSample == 32) {
                 r = byteData.readFloat32();
                 g = byteData.readFloat32();
                 b = byteData.readFloat32();
